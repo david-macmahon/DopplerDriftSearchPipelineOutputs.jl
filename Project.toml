@@ -3,7 +3,17 @@ uuid = "dce9cb67-2d69-4dbd-b3f2-02d6a32bde18"
 authors = ["David MacMahon <davidm@astro.berkeley.edu> and contributors"]
 version = "0.1.0"
 
+[deps]
+Arrow = "69666777-d1a9-59fb-9406-91d4454c9d45"
+DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
+DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
+SortMerge = "041a2d23-8c6e-5597-be73-bf96b5e0dfd4"
+
 [compat]
+Arrow = "2.7.0"
+DataFrames = "1.6.1"
+DelimitedFiles = "1.9.1"
+SortMerge = "1.4.0"
 julia = "1.6"
 
 [extras]
