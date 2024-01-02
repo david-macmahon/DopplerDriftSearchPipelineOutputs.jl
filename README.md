@@ -5,7 +5,7 @@ created by the `DopplerDriftSearchPipeline` package.  The output files contain
 records of *hits* that were detected by the search pipeline.  A *hit* is a
 detection of a signal that drifts in frequency over time with integrated power
 greater than or equal to a given threshold.  Often there will be multiple
-*ptoto-hits* clustered near each other in the *frequency vs drift rate*
+*proto-hits* clustered near each other in the *frequency vs drift rate*
 detection plane.  Each cluster of proto-hits is recorded as a single hit with
 starting frequency and drift rate of the proto-hit with the highest value
 among all proto-hits of the cluster.
@@ -69,13 +69,13 @@ cluster.
 
 To load a hits file use the `loadhits` function, which reads in the specified
 Arrow file and converts it into a `DataFrame` for easy manipulation.  The
-returned DataFrame has one row per hit as well as the file level metadata
+returned `DataFrame` has one row per hit as well as the file level metadata
 described above.
 
 ```julia
 julia> using DopplerDriftSearchPipelineOutputs
 
-julia> df=loadhits("guppi_59103_05106_TIC424865156_0020.rawspec.0000.arrow")
+julia> df = loadhits("guppi_59103_05106_TIC424865156_0020.rawspec.0000.arrow")
 58410×15 DataFrame
    Row │ id     pkval       pkchan     pkfreq    pkrate       nhits   lochan   ⋯
        │ Int64  Float32     Int64      Float64   Float64      Int64   Int64    ⋯
@@ -97,7 +97,7 @@ julia> df=loadhits("guppi_59103_05106_TIC424865156_0020.rawspec.0000.arrow")
                                                 9 columns and 58397 rows omitted
 ```
 
-The metadata of the DataFrame can be obtained with the `metadata` function:
+The metadata of the `DataFrame` can be obtained with the `metadata` function:
 
 ```julia
 ulia> metadata(df)
@@ -150,7 +150,7 @@ Here is an example that shows 3645 hits from `df1` match with 3645 hits from
 step and accounting for the time difference `dt` between `df1` and `df2`:
 
 ```julia
-julia> j=fuzzymatch(df1, df2, foff, deltarate, dt)
+julia> matchinfo = fuzzymatch(df1, df2, foff, deltarate, dt)
 Input 1:         3645 /        58410  (  6.24%), min/max mult.:      1 :      1
 Input 2:         3645 /        51946  (  7.02%), min/max mult.:      1 :      1
 Output :         3645
@@ -160,7 +160,7 @@ Output :         3645
 
 The `turboSETI` Python package, an early Doppler drift search pipeline, outputs
 a `.dat` file containing all the hits it found.  The `.dat` files are text files
-starts with comment lines followed by whitespace delimited tabular data with
+that start with comment lines followed by whitespace delimited tabular data with
 predefined columns.  `DopplerDriftSearchPipelineOutputs` includes a `readdat()`
 function to parses `turboSETI` `.dat` files using the `DelimitedFiles` package
 and returns the tablular data as a `DataFrame`.  As of this writing, the columns
@@ -182,10 +182,10 @@ in a `.dat` file are named:
 See the turboSETI docs (and/or source code) for the definitions/descriptions
 of these fields.  Note that `readdat` does not parse the metadata in the
 freeform comment lines that preceed the tablular data, but it does add one
-metadata field, `datfil`, to the returned `DataFrame` to indicate the name of
+metadata field, `datfile`, to the returned `DataFrame` to indicate the name of
 the `.dat` file (excluding directories).
 
-For comparision of `turboSETI` outputs with `DopplerDriftSearchPipeline``
+For comparision of `turboSETI` outputs with `DopplerDriftSearchPipeline`
 outputs, one can pass a `DataFrame` returned by `loadhits` and another returned
 by `loaddat` to `fuzzymatch` along with a `cols1` or `cols2` keyword argument
 containing the relevant colume names to use for the `.dat` file's `DataFrame`,
