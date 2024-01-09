@@ -23,7 +23,7 @@ function loadhits(arrowname::AbstractString)::DataFrame
             @warn "unknown metadata field $k"
             vany = v
         end
-        metadata!(df, k, vany)
+        metadata!(df, k, vany; style=:note)
     end
 
     df

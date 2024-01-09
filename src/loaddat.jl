@@ -15,7 +15,7 @@ function loaddat(fname)
         DataFrame()
     end
 
-    metadata!(df, "datfile", basename(fname))
+    metadata!(df, "datfile", basename(fname); style=:note)
 
     df
 end
