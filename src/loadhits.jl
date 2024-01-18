@@ -14,7 +14,7 @@ function loadhits(arrowname::AbstractString)::DataFrame
     for (k,v) in Arrow.getmetadata(tbl)
         if k in ("datafile", "source_name")
             vany = v
-        elseif k in ("nfpc", "nchans", "nsamps", "nrates")
+        elseif k in ("nchans", "nsamps", "chunkchans", "nrates")
             vany = something(tryparse(Int, v), v)
         elseif k in ("startrate", "deltarate", "snr", "radius",
                      "fch1", "foff", "tstart", "tsamp", "ra", "dec", "dfdt")
@@ -22,6 +22,10 @@ function loadhits(arrowname::AbstractString)::DataFrame
         # `numrates` was original name of `nrates`
         elseif k == "numrates"
             k = "nrates" # Silently translate to new name
+            vany = something(tryparse(Int, v), v)
+        # `nfpc` was original and ambiguous name of `chunkchans`
+        elseif k == "nfpc"
+            k = "chunkchans" # Silently translate to new name
             vany = something(tryparse(Int, v), v)
         else
             @warn "unknown metadata field $k"

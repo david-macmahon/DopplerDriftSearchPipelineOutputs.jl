@@ -9,6 +9,7 @@ using SortMerge
 
 export clusterizeprotohits
 export clusterinfo
+export hitsearchmetadata
 export loadhits
 export loaddat
 export fuzzymatch
@@ -29,6 +30,7 @@ end
 
 include("clusterutils.jl")
 include("extstubs.jl")
+include("hitsearchmetadata.jl")
 include("loadhits.jl")
 include("loaddat.jl")
 include("fuzzymatch.jl")
