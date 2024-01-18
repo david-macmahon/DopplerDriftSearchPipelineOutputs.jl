@@ -1,4 +1,4 @@
-module DopplerDriftSearchPipelineOutputs
+module DopplerDriftSearchTools
 
 using Arrow
 using DataFrames
@@ -13,4 +13,4 @@ include("loadhits.jl")
 include("loaddat.jl")
 include("fuzzymatch.jl")
 
-end # module
+end # module DopplerDriftSearchTools

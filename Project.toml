@@ -1,4 +1,4 @@
-name = "DopplerDriftSearchPipelineOutputs"
+name = "DopplerDriftSearchTools"
 uuid = "dce9cb67-2d69-4dbd-b3f2-02d6a32bde18"
 authors = ["David MacMahon <davidm@astro.berkeley.edu> and contributors"]
 version = "0.1.1"

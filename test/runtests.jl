@@ -1,6 +1,6 @@
-using DopplerDriftSearchPipelineOutputs
+using DopplerDriftSearcheTools
 using Test
 
-@testset "DopplerDriftSearchPipelineOutputs.jl" begin
+@testset "DopplerDriftSearchTools.jl" begin
     # Write your tests here.
 end
