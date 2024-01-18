@@ -167,6 +167,16 @@ Input 2:         3645 /        51946  (  7.02%), min/max mult.:      1 :      1
 Output :         3645
 ```
 
+# Extensions
+
+Loading the Plots package along with this package enables an extension that
+provide a `clusterheatmap` and `waterfall` plotting methods.  `clusterheatmap`
+can be used to plot a region of an FDR matrix that contains a cluster of
+proto-hits.  Optionally, the proto-hits that comprise the cluster may be
+highlighted..  `waterfall` can be used to plot a portion of a spectrogram that
+contains a Doppler drifting signal.  Optionally, the drift line corresponding to
+the drifting signal may be overlaid.
+
 # Other functionality
 
 The `turboSETI` Python package, an early Doppler drift search pipeline, outputs
