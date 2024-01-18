@@ -1,4 +1,14 @@
-# DopplerDriftSearchPipelineOutputs
+!!! warning "Under Construction"
+
+    This document is under construction.
+
+# DopplerDriftSearchTools.jl
+
+This package is part of a suite of packages that can be used in tandem to search
+for, detect, and analyze narrow band signals in frequency-time spectrograms
+produced by radio telescopes.  Searching for Doppler drifting narrow band
+signals in radio telescope spectrograms is a technique often employed by
+scientists engaged in the Search for Extraterrestrial Intelligence (SETI).
 
 This package provides functionality for working with data in the output files
 created by the `DopplerDriftSearchPipeline` package.  The output files contain
@@ -133,12 +143,13 @@ analytical approach is to allow for some error in the matching process.
 
 The `fuzzymatch` function will match hits from two `DataFrames` based on their
 `pkfreq` and `pkrate` columns using caller supplied tolerances (aka *fuzz*) for
-frequency and drift rate.  Additionally, `fuzzymatch` accepts a parameter that
-specifies the difference between start times of the data files.  This value,
-referred to as `dt`, is used to extrapolate the starting frequency of a hit in
-the first `DataFrame` to the starting time of the second `DataFrame` using the
-hit's drift rate.  For this to work, `dt` must be given in seconds and the
-`pkfreq` columns must be in `MHz`.  The default value for `dt` is 0 (i.e. no
+frequency and drift rate.  The columns used for comparison may be overridden by
+the caller for either or both `DataFrame`.  Additionally, `fuzzymatch` accepts a
+parameter that specifies the difference between start times of the data files.
+This value, referred to as `dt`, is used to extrapolate the starting frequency
+of a hit in the first `DataFrame` to the starting time of the second `DataFrame`
+using the hit's drift rate.  For this to work, `dt` must be given in seconds and
+the `pkfreq` columns must be in `MHz`.  The default value for `dt` is 0 (i.e. no
 extrapolation by default).
 
 The implementation of `fuzzymatch` uses `SortMerge.jl`.  The object returned by
