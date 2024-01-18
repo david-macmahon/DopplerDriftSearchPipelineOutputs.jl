@@ -20,6 +20,14 @@ detection plane.  Each cluster of proto-hits is recorded as a single hit with
 starting frequency and drift rate of the proto-hit with the highest value
 among all proto-hits of the cluster.
 
+This package also provides functions for clustering proto-hits and working with
+the clusters:
+
+- `clusterizeprotohits` to group proto-hits into clusters of neighboring
+  proto-hits
+- `clusterinfo` to return a `NamedTuple` of metadata
+  about a proto-hit cluster.
+
 # DopplerDriftSearchPipeline output files
 
 The output files from `DopplerDriftSearchPipeline` are stored in the Apache
@@ -72,7 +80,7 @@ Each hit contains the following fields:
 
 The fields whose names start with `pk` describe the hit (i.e. the peak
 proto-hit of the cluster).  `nhits` and the various `lo`/`hi` fields are
-intended to give some general indication of the morphology of the proto-hit
+intended to give some very basic indication of the morphology of the proto-hit
 cluster.
 
 # Loading hits

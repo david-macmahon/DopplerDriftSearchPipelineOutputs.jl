@@ -1,10 +1,14 @@
 module DopplerDriftSearchTools
 
 using Arrow
+using BlockArrays: mortar
+using Clustering: dbscan
 using DataFrames
 using DelimitedFiles
 using SortMerge
 
+export clusterizeprotohits
+export clusterinfo
 export loadhits
 export loaddat
 export fuzzymatch
@@ -23,6 +27,7 @@ end
     end
 end
 
+include("clusterutils.jl")
 include("extstubs.jl")
 include("loadhits.jl")
 include("loaddat.jl")
