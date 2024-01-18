@@ -27,5 +27,6 @@ include("extstubs.jl")
 include("loadhits.jl")
 include("loaddat.jl")
 include("fuzzymatch.jl")
+include("rangeutils.jl")
 
 end # module DopplerDriftSearchTools
