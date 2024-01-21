@@ -17,7 +17,7 @@ not a supported keyword argument.
 
 | Name        | Description                                         |
 |:------------|:----------------------------------------------------|
-|`datafile`   | Filename of input data file (only basename stored)  |
+|`datafile`   | Filename of input data file                         |
 |`fch1`       | Frequency of first channel in `datafile` (MHz)      |
 |`foff`       | Channel width in `datafile` (MHz)                   |
 |`nchans`     | Number of channels in `datafile`                    |
@@ -25,7 +25,7 @@ not a supported keyword argument.
 |`tsamp`      | Integration time of each sample in `datafile` (sec) |
 |`nsamps`     | Number of samples in `datafile`                     |
 |`source_name`| Source name from header of `datafile`               |
-|`ra`         | Right ascension if source (hours)                   |
+|`ra`         | Right ascension of source (hours)                   |
 |`dec`        | Declination of source (degrees)                     |
 |`dfdt`       | Channel width / tsamp (Hz/s)                        |
 |`chunkchans` | Number of channels searched at one time             |
@@ -40,7 +40,7 @@ function hitsearchmetadata(;
     ra, dec, chunkchans, startrate, deltarate, nrates, snr, radius
 )
     [
-        "datafile"    => basename(datafile),
+        "datafile"    => datafile,
         "fch1"        => convert(Float64, fch1),
         "foff"        => convert(Float64, foff),
         "nchans"      => convert(Int,     nchans),
