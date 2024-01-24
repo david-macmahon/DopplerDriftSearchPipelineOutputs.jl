@@ -16,7 +16,7 @@ end
 
 """
     fuzzymatch(df1, df2, frfuzz, drfuzz, dt=0;
-               cols1=[:pkfreq, :pkrate], cols2=cols1)
+               cols1=[:pkfreq, :pkrate], cols2=cols1, sorted=false)
 
 Performs a fuzzy match between hits in `df1` and hits in `df2` using a time,
 frequency, and drift rate aware matching algorithm.  The `df1` and `df2` inputs
