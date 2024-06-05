@@ -1,5 +1,6 @@
 module PlotsDopplerDriftSearchToolsExt
 
+using DopplerDriftSearchTools: clusterrange
 import DopplerDriftSearchTools: clusterheatmap, waterfall
 
 if isdefined(Base, :get_extension)
