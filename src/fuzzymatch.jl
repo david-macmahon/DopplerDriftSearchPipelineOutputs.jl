@@ -26,7 +26,7 @@ the `cols1` and `cols2` keyword arguments.  Returns a `SortMerge.Matched`
 object.
 """
 function fuzzymatch(df1::DataFrame, df2::DataFrame, frfuzz, drfuzz, dt=0;
-                    cols1=[:pkfreq, :pkrate], cols2=[:pkfreq, :pkrate],
+                    cols1=[:pkfreq, :pkrate], cols2=cols1,
                     sorted=false)
     sortmerge(df1, df2, cols1, cols2, frfuzz, drfuzz, dt; sorted,
         lt1=(v,i,j)->v[i, cols1] < v[j, cols1],
