@@ -1,12 +1,25 @@
 """
-    clamprange(r::CartesianIndices, array::AbstractArray) -> CartesianIndices
+    clampci(ci::CartesianIndex; [lolim], [hilim])
+
+Clamp `ci` components to be no lower than `lolim` (defaults to
+`CartesianIndex(1,...)`) and no higher than `hilim` (defaults to
+`CartesianIndex(typemax(Int),...)`).
+"""
+function clampci(r::CartesianIndex{N};
+                 lolim=CartesianIndex{N}(ntuple(i->1, N)),
+                 hilim=CartesianIndex{N}(ntuple(i->typemax(Int), N))) where N
+    clamp.(Tuple(r), Tuple(lolim), Tuple(hilim)) |> CartesianIndex
+end
+
+"""
+    clamprange(r::CartesianIndices, array::AbstractArray)
 
 Clamp the CartesianIndices range `r` to the dimensions of `a`.
 """
 function clamprange(r::CartesianIndices, array::AbstractArray)
     lo, hi = extrema(r)
     lolim, hilim = extrema(CartesianIndices(array))
-    clamp(lo, lolim):step(r):clamp(hi, hilim)
+    clampci(lo; lolim):step(r):clampci(hi; hilim)
 end
 
 """
@@ -29,7 +42,7 @@ function clusterrange(
     lo -= border
     hi += border
     lolim, hilim = extrema(CartesianIndices(array))
-    clamp(lo, lolim):clamp(hi, hilim)
+    clampci(lo; lolim):clampci(hi; hilim)
 end
 
 function clusterrange(cijs, array, border)
