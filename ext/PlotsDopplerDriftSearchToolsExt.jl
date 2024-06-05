@@ -27,13 +27,13 @@ function clusterheatmap(cijs, matrix,
 )
     isempty(cijs) && error("no points to plot")
     crange = clusterrange(cijs, matrix, border)
-    yy, xx = crange.indices
+    xx, yy = crange.indices
 
-    p = heatmap(xx, yy, @view matrix[crange])
+    p = heatmap(xx, yy, (@view matrix[crange])'; cbar=get(kwargs, :cbar, true))
 
     if overlay !== nothing && overlay !== false
         (overlay === true) && (overlay = cijs)
-        scatter!(p, Tuple.(overlay).|>reverse;
+        scatter!(p, Tuple.(overlay);
             ms=1, msw=0, widen=false, legend=false,
             alpha=0.5, color=:green,
             kwargs...
