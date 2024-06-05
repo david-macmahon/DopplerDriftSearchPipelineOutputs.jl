@@ -63,8 +63,8 @@ end
 
 Returns a NamedTuple of metadata about the proto-hit cluster comprised of points
 `cijs` (typically a `Vector{CartesionIndex}`) in FDR matrix `fdr` or `fdrs`, a
-Vector of *batched* FDR matrices they are treated as drift rate adjacent
-portions of a larger FDR matrix).  To get cluster info for multiple clusters
+Vector of *batched* FDR matrices that are treated as drift rate adjacent
+portions of a larger FDR matrix.  To get cluster info for multiple clusters
 from a single (unbatched) FDR, broadcast over `ids` and `cijss`, but wrap `fdr`
 in a `Ref`, as shown in the third form.  To get cluster info for multiple
 clusters from multiple (batched) FDRs matrices, use the fourth form rather than
