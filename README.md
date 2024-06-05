@@ -64,11 +64,16 @@ Each hit contains the following fields:
   the input file.  This value is relative to the input file.
 - `pkfreq`: The topocentric frequency of the hit in the first time sample.
 - `pkrate`: The drift-rate of the hit in `Hz/s`.
+- `ctval`: The value of the FDR point closest to the cluster's centroid.
+- `ctchan`: The (non-integer) starting channel of the cluster centroid.
+- `ctfreq`: Interpolated (starting) frequency of the cluster's centroid.
+- `ctrate`: Interpolated drift rate of the cluster's centroid.
 - `nhits`: The number of proto-hits in this hit's cluster.
 - `lochan`: The lowest channel of all proto-hits in this hit's cluster.
 - `hichan`: The highest channel of all proto-hits in this hit's cluster.
 - `lorateidx`: The index of the lowest drift rate of all proto-hits in this
   hit's cluster.
+- `ctrateidx`: The (non-integer) index of the cluster centroid's drift rate.
 - `pkrateidx`: The index of the drift rate of the peak proto-hit of this
   hit's cluster (i.e. of this hit).
 - `hirateidx`: The index of the highest drift rate of all proto-hots in this
@@ -79,9 +84,9 @@ Each hit contains the following fields:
 - `hirate`: The highest drift rate of all proto-hits in this hit's cluster.
 
 The fields whose names start with `pk` describe the hit (i.e. the peak
-proto-hit of the cluster).  `nhits` and the various `lo`/`hi` fields are
-intended to give some very basic indication of the morphology of the proto-hit
-cluster.
+proto-hit of the cluster).  Fields whose names start with `ct` describe the
+centroid of the cluster.  `nhits` and the various `lo`/`hi` fields are intended
+to give some very basic indication of the morphology of the proto-hit cluster.
 
 # Loading hits
 

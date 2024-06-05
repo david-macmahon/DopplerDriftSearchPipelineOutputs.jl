@@ -11,6 +11,7 @@ DataFrames = "a93c6f00-e57d-5684-b7b6-d8193f3e46c0"
 DelimitedFiles = "8bb1440f-4735-579b-a4ab-409b98df4dab"
 Requires = "ae029012-a4dd-5104-9daa-d747884805df"
 SortMerge = "041a2d23-8c6e-5597-be73-bf96b5e0dfd4"
+StatsBase = "2913bbd2-ae8a-5f71-8c99-4fb6c76f3a91"
 
 [weakdeps]
 Plots = "91a5bcdd-55d7-5caf-9e0b-520d859cae80"

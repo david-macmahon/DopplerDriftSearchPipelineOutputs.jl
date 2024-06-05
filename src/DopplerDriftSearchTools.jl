@@ -6,6 +6,7 @@ using Clustering: dbscan
 using DataFrames
 using DelimitedFiles
 using SortMerge
+using StatsBase
 
 export clusterizeprotohits
 export clusterinfo

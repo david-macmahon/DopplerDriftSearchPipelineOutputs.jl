@@ -56,7 +56,32 @@ function clusterpeak(cijs, fdr)
 end
 
 """
-    clusterinfo([f,] cijs, fdr; chans, freqs, rates) -> NamedTuple
+    clustercentroid([f,] cijs, fdr) -> (; ctval, ctchan, ctrateidx)
+
+Finds the centroid value of `fdr[cijs]` and the (non-integer) frequency drift
+rate indices of the centroid in `fdr`.  The `cijs` are all the CartesianIndex
+values that correspond to the same cluster.  If function `f` is given, it will
+be passed the cluster's centroid value and its return value will be returned as
+the cluster's centroid value.  This allows a user supplied function to normalize
+(or otherwise modify) the centroid value.  Currently the centroid value is the
+`fdr` value nearest to the non-integer centroid but this may change in future
+versions.
+"""
+function clustercentroid(f::Function, cijs, fdr)
+    isempty(cijs) && error("no points in cluster")
+    w = weights(fdr[cijs])
+    centroid = Tuple(mean(getindex.(cijs, d), w) for d in 1:ndims(fdr))
+    ctidx = CartesianIndex(round.(Int, centroid))
+    ctval = f(fdr[ctidx])
+    ctchan, ctrateidx = centroid
+    (; ctval, ctchan, ctrateidx)
+end
+
+function clustercentroid(cijs, fdr)
+    clustercentroid(identity, cijs, fdr)
+end
+
+"""
     clusterinfo([f,] id, cijs, fdrs; chans, freqs, rates) -> NamedTuple
     clusterinfo.([f,] ids, cijss, Ref(fdr); chans, freqs, rates) -> Vector{NamedTuple}
     clusterinfo([f,] ids, cijss, fdrs; chans, freqs, rates) -> Vector{NamedTuple}
@@ -77,11 +102,16 @@ Each returned `NamedTuple` will have the following fields:
 - `pkchan` - The (starting) channel of the cluster's peak proto-hit
 - `pkfreq` - The (starting) frequency of the cluster's peak proto-hit
 - `pkrate` - The drift rate of the cluster's peak proto-hit
+- `ctval` - The value of the FDR point closest to the cluster's centroid
+- `ctchan` - The (non-integer) starting channel of the cluster centroid
+- `ctfreq` - Interpolated (starting) frequency of the cluster's centroid
+- `ctrate` - Interpolated drift rate of the cluster's centroid
 - `nhits` - The number of proto-hits in the cluster
 - `lochan` - The lowest (starting) channel of the cluster's proto-hits
 - `hichan` - The highest (starting) channel of the cluster's proto-hits
 - `lorateidx` - The lowest drift rate index of the cluster's proto-hits
 - `pkrateidx` - The index of the drift rate of the cluster's peak proto-hit
+- `ctrateidx` - The (non-integer) index of the cluster centroid's drift rate
 - `hirateidx` - The highest drift rate index of the cluster's proto-hits
 - `lofreq` - The lowest (starting) frequency of the cluster's proto-hits
 - `hifreq` - The highest (starting) frequency of the cluster's proto-hits
@@ -102,15 +132,28 @@ which is generally not very useful but may be convenient during development.
 function clusterinfo(f::Function, id, cijs::Vector{CartesianIndex{2}},
                      fdr::AbstractMatrix;
                      chans=axes(fdr, 1), freqs=axes(fdr,1), rates=axes(fdr,2))
+    # helper function for interpolation
+    function interp(ys, x)
+        isinteger(x) && return ys[Int(x)]
+        x0 = floor(x)
+        x0 < firstindex(ys) && return first(ys)
+        x1 = ceil(x)
+        x1 > lastindex(ys) && return last(ys)
+        ys[x0] * (x1-x) + ys[x1] * (x-x0)
+    end
+
     isempty(cijs) && error("no points in cluster")
     pkval, pkchan, pkrateidx = clusterpeak(f, cijs, fdr)
+    ctval, ctchan, ctrateidx = clustercentroid(f, cijs, fdr)
     nhits = length(cijs)
     (lochan, lorateidx), (hichan, hirateidx) = Tuple.(extrema(cijs))
     lofreq = freqs[lochan]
     pkfreq = freqs[pkchan]
+    ctfreq = interp(freqs, ctchan)
     hifreq = freqs[hichan]
     lorate = rates[lorateidx]
     pkrate = rates[pkrateidx]
+    ctrate = interp(rates, ctrateidx)
     hirate = rates[hirateidx]
 
     # Convert FDR channel indices to user channels
@@ -118,8 +161,10 @@ function clusterinfo(f::Function, id, cijs::Vector{CartesianIndex{2}},
     pkchan = chans[pkchan]
     hichan = chans[hichan]
 
-    (; id, pkval,
-       pkchan, pkfreq, pkrate, nhits,
+    (; id,
+       pkval, pkchan, pkfreq, pkrate,
+       ctval, ctchan, ctfreq, ctrate,
+       nhits,
        lochan, hichan,
        lorateidx, pkrateidx, hirateidx,
        lofreq, hifreq,
