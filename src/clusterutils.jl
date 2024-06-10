@@ -135,9 +135,9 @@ function clusterinfo(f::Function, id, cijs::Vector{CartesianIndex{2}},
     # helper function for interpolation
     function interp(ys, x)
         isinteger(x) && return ys[Int(x)]
-        x0 = floor(x)
+        x0 = floor(Int, x)
         x0 < firstindex(ys) && return first(ys)
-        x1 = ceil(x)
+        x1 = ceil(Int, x)
         x1 > lastindex(ys) && return last(ys)
         ys[x0] * (x1-x) + ys[x1] * (x-x0)
     end
