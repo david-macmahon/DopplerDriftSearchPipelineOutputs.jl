@@ -166,7 +166,7 @@ function clusterinfo(f::Function, id, cijs::Vector{CartesianIndex{2}},
        ctval, ctchan, ctfreq, ctrate,
        nhits,
        lochan, hichan,
-       lorateidx, pkrateidx, hirateidx,
+       lorateidx, pkrateidx, ctrateidx, hirateidx,
        lofreq, hifreq,
        lorate, hirate)
 end
