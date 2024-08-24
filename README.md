@@ -1,7 +1,3 @@
-!!! warning "Under Construction"
-
-    This document is under construction.
-
 # DopplerDriftSearchTools.jl
 
 This package is part of a suite of packages that can be used in tandem to search
@@ -72,7 +68,7 @@ Each hit contains the following fields:
 - `pkrateidx`: The index of the drift rate of the peak proto-hit of this
   hit's cluster (i.e. of this hit).
 - `hirateidx`: The index of the highest drift rate of all proto-hots in this
-  hit's cluster. 
+  hit's cluster.
 - `lofreq`: The lowest frequency of all proto-hits in this hit's cluster.
 - `hifreq`: The highest frequency of all proto-hits in this hit's cluster.
 - `lorate`: The lowest drift rate of all proto-hits in this hit's cluster.
