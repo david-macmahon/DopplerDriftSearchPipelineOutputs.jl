@@ -1,7 +1,7 @@
 name = "DopplerDriftSearchTools"
-uuid = "dce9cb67-2d69-4dbd-b3f2-02d6a32bde18"
+uuid = "3c05c407-b7dd-4203-808a-fc0d81ac5878"
 authors = ["David MacMahon <davidm@astro.berkeley.edu> and contributors"]
-version = "0.2.2"
+version = "0.3.0"
 
 [deps]
 Arrow = "69666777-d1a9-59fb-9406-91d4454c9d45"
