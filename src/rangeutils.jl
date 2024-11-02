@@ -17,8 +17,10 @@ end
 Clamp the CartesianIndices range `r` to the dimensions of `a`.
 """
 function clamprange(r::CartesianIndices, array::AbstractArray)
-    lo, hi = extrema(r)
-    lolim, hilim = extrema(CartesianIndices(array))
+    lo = first(r)
+    hi = last(r)
+    lolim = first(CartesianIndices(array))
+    hilim = last(CartesianIndices(array))
     clampci(lo; lolim):step(r):clampci(hi; hilim)
 end
 
