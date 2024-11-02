@@ -14,14 +14,11 @@ end
 """
     clamprange(r::CartesianIndices, array::AbstractArray)
 
-Clamp the CartesianIndices range `r` to the dimensions of `a`.
+Clamp the CartesianIndices range `r` to the dimensions of `a`.  Equivalent to
+`intersect(r, CartesianIndices(array))`.
 """
 function clamprange(r::CartesianIndices, array::AbstractArray)
-    lo = first(r)
-    hi = last(r)
-    lolim = first(CartesianIndices(array))
-    hilim = last(CartesianIndices(array))
-    clampci(lo; lolim):step(r):clampci(hi; hilim)
+    intersect(r, CartesianIndices(array))
 end
 
 """
